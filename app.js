@@ -22,6 +22,11 @@ angular.module('uiTestRunner')
 		this.edit = function (test) {
 			$location.path("/Edit/" + test.Guid);
 		}
+
+		this.remove = function (test) {
+			var idx = $localStorage.Tests.indexOf(test);
+			$localStorage.Tests.splice(idx, 1);
+		}
 	})
 	.controller("NewTestController", function NewTestController($localStorage, $location, GuidGeneratorService) {
 		$localStorage.Tests = $localStorage.Tests || [];
@@ -49,7 +54,7 @@ angular.module('uiTestRunner')
 			testToUpdate.Code = self.Code;
 			testToUpdate.Name = self.Name;
 			testToUpdate.Tags = self.Tags;
-			
+
 			$location.path("Home");
 		};
 	})
