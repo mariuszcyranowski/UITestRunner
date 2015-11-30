@@ -9,6 +9,7 @@
           <th>Nazwa</th>
           <th>URL</th>
           <th>Status</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -17,6 +18,9 @@
           <td>{{test.Name}}</td>
           <td>{{test.Url}}</td>
           <td>Nowy</td>
+          <td>
+            <button ng-click="vm.edit(test)">Edycja</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -25,5 +29,4 @@
     <button>Historia</button>
     <button>Uruchom</button>
     <button>Usuń</button>
-    <button>Edytuj</button>
   </div>

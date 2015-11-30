@@ -16,8 +16,12 @@ angular.module('uiTestRunner')
 				s4() + '-' + s4() + s4() + s4();
 		};
 	})
-	.controller('MainController', function MainController($localStorage) {
+	.controller('MainController', function MainController($localStorage, $location) {
 		this.Tests = $localStorage.Tests;
+
+		this.edit = function (test) {
+			$location.path("/Edit/" + test.Guid);
+		}
 	})
 	.controller("NewTestController", function NewTestController($localStorage, $location, GuidGeneratorService) {
 		$localStorage.Tests = $localStorage.Tests || [];
@@ -33,6 +37,22 @@ angular.module('uiTestRunner')
 			$location.path("Home");
 		};
 	})
+	.controller("EditTestController", function EditTestController($localStorage, test, $location) {
+		var self = this;
+		angular.extend(this, test);
+
+		self.Save = function () {
+			var testToUpdate = $localStorage.Tests.find(function (t) {
+				return t.Guid === self.Guid;
+			});
+			testToUpdate.Url = self.Url;
+			testToUpdate.Code = self.Code;
+			testToUpdate.Name = self.Name;
+			testToUpdate.Tags = self.Tags;
+			
+			$location.path("Home");
+		};
+	})
 	.config(function ($routeProvider, $locationProvider) {
 		$routeProvider
 			.when('/Home', {
@@ -44,6 +64,19 @@ angular.module('uiTestRunner')
 				templateUrl: 'edit.html',
 				controller: 'NewTestController',
 				controllerAs: 'vm'
+			})
+			.when('/Edit/:guid', {
+				templateUrl: 'edit.html',
+				controller: 'EditTestController',
+				controllerAs: 'vm',
+				resolve: {
+					test: function ($localStorage, $route) {
+						var guid = $route.current.params.guid;
+						return $localStorage.Tests.find(function (test) {
+							return test.Guid === guid;
+						});
+					}
+				}
 			})
 			.otherwise({
 				redirectTo: '/Home'
