@@ -1,32 +1,36 @@
 <div>
-    <input type="text" placeholder="Wyszukiwarka" ng-model="vm.search">
-  </div>
-  <div class='tests'>
-    <table cellspacing='0' >
+  <input type="text" placeholder="Wyszukiwarka" ng-model="vm.search">
+</div>
+
+<md-button class="md-fab md-accent" ng-transclude ng-click="vm.add()">
+    <span>+</span>
+  </md-button>
+<div class='tests'>
+  <md-data-table-container>
+    <table md-data-table md-row-select="selected" md-progress="deferred">
       <thead>
-        <tr class='odd'>
-          <th>Ptaszek</th>
-          <th>Nazwa</th>
-          <th>URL</th>
-          <th>Status</th>
-          <th></th>
+        <tr>
+          <th name="Nazwa"></th>
+          <th name="URL"></th>
+          <th name="Status"></th>
+          <th name=""></th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="test in vm.Tests">
-          <td><input type="checkbox"/></td>
+        <tr md-auto-select ng-repeat="test in vm.Tests">
           <td>{{test.Name}}</td>
           <td>{{test.Url}}</td>
           <td>Nowy</td>
           <td>
-            <button ng-click="vm.edit(test)">Edycja</button>
-            <button ng-click="vm.remove(test)">Usuń</button>
+            <md-button class="md-raised" ng-click="vm.edit(test)" aria-label="Edycja">Edycja</md-button>
+            <md-button class="md-raised" ng-click="vm.remove(test)" aria-label="Usuń">Usuń</md-button>
           </td>
         </tr>
       </tbody>
     </table>
-  </div>
-  <div class='buttons'>
-    <button>Historia</button>
-    <button>Uruchom</button>
-  </div>
+  </md-data-table-container>
+</div>
+<div class='buttons'>
+  <md-button class="md-raised">Historia</md-button>
+  <md-button class="md-raised">Uruchom</md-button>
+</div>

@@ -2,7 +2,7 @@
 'use strict';
 
 
-angular.module('uiTestRunner', ['ngRoute', 'ngStorage']);
+angular.module('uiTestRunner', ['ngRoute', 'ngStorage', 'md.data.table', 'ngMaterial']);
 
 angular.module('uiTestRunner')
 	.service("GuidGeneratorService", function () {
@@ -18,7 +18,9 @@ angular.module('uiTestRunner')
 	})
 	.controller('MainController', function MainController($localStorage, $location) {
 		this.Tests = $localStorage.Tests;
-
+		this.add = function () {
+			$location.path("/New");
+		}
 		this.edit = function (test) {
 			$location.path("/Edit/" + test.Guid);
 		}
