@@ -16,13 +16,34 @@ angular.module('uiTestRunner')
 				s4() + '-' + s4() + s4() + s4();
 		};
 	})
-	.controller('MainController', function MainController($localStorage, $location) {
+	.controller('MainController', function MainController($localStorage, $location, $mdDialog) {
 		this.Tests = $localStorage.Tests;
-		this.add = function () {
-			$location.path("/New");
+		this.add = function (event) {
+			$mdDialog.show({
+				clickOutsideToClose: true,
+				controller: 'NewTestController',
+				controllerAs: 'vm',
+				focusOnOpen: false,
+				targetEvent: event,
+				templateUrl: 'edit.html',
+			}).then(function (test) {
+				console.log(test);
+			});
 		}
-		this.edit = function (test) {
-			$location.path("/Edit/" + test.Guid);
+		this.edit = function (event, test) {
+			$mdDialog.show({
+				clickOutsideToClose: true,
+				controller: 'EditTestController',
+				controllerAs: 'vm',
+				focusOnOpen: false,
+				targetEvent: event,
+				templateUrl: 'edit.html',
+				locals: {
+					test: test
+				}
+			}).then(function (test) {
+				console.log(test);
+			});
 		}
 
 		this.remove = function (test) {
@@ -30,24 +51,30 @@ angular.module('uiTestRunner')
 			$localStorage.Tests.splice(idx, 1);
 		}
 	})
-	.controller("NewTestController", function NewTestController($localStorage, $location, GuidGeneratorService) {
+	.controller("NewTestController", function NewTestController($localStorage, $location, GuidGeneratorService, $mdDialog) {
 		$localStorage.Tests = $localStorage.Tests || [];
 		var self = this;
+		this.Cancel = function () {
+			$mdDialog.hide();
+		};
 		this.Save = function () {
-			$localStorage.Tests.push({
+			var test = {
 				Guid: GuidGeneratorService(),
 				Url: self.Url,
 				Code: self.Code,
 				Name: self.Name,
 				Tags: self.Tags,
-			});
-			$location.path("Home");
+			};
+			$localStorage.Tests.push(test);
+			$mdDialog.hide(test);
 		};
 	})
-	.controller("EditTestController", function EditTestController($localStorage, test, $location) {
+	.controller("EditTestController", function EditTestController($localStorage, test, $location, $mdDialog) {
 		var self = this;
 		angular.extend(this, test);
-
+		self.Cancel = function () {
+			$mdDialog.hide();
+		};
 		self.Save = function () {
 			var testToUpdate = $localStorage.Tests.find(function (t) {
 				return t.Guid === self.Guid;
@@ -57,7 +84,7 @@ angular.module('uiTestRunner')
 			testToUpdate.Name = self.Name;
 			testToUpdate.Tags = self.Tags;
 
-			$location.path("Home");
+			$mdDialog.hide(testToUpdate);
 		};
 	})
 	.config(function ($routeProvider, $locationProvider) {
