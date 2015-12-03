@@ -6,5 +6,4 @@ python -m SimpleHTTPServer
 do zrobienia:
 kontroler do edycji i dodawania, który otrzymuje obiekt do zapisu.
 stworzenie interjesu do danych zastepujacego localStorage
-bug: pierwsze dodanie testu nie odswieza grida
 

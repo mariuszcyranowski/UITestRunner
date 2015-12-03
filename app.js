@@ -17,7 +17,7 @@ angular.module('uiTestRunner')
 		};
 	})
 	.controller('MainController', function MainController($localStorage, $location, $mdDialog) {
-		this.Tests = $localStorage.Tests;
+		this.Tests = $localStorage.Tests || ($localStorage.Tests = []);
 		this.add = function (event) {
 			$mdDialog.show({
 				clickOutsideToClose: true,
