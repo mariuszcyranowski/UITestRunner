@@ -1,28 +1,31 @@
 <md-dialog>
-  
     <md-dialog-content>
-      <h2>Add/Edit Test</h2>
+        <md-content layout-padding layout="column">
+            <h2>Add/Edit Test</h2>
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.Name">
+            </md-input-container>
 
-      <div>
-        <label for="url">URL:</label>
-        <input name="url" type="text" placeholder="Url" ng-model="vm.Url">
-      </div>
-      <div>
-        <label for="testCode">Test Content:</label>
-        <textarea name="testCode" id="testCode" cols="30" rows="10" placeholder="Write test code..." ng-model="vm.Code"></textarea>
-      </div>
-      <div>
-        <label for="testName">Name:</label>
-        <input type="text" name="testName" ng-model="vm.Name">
-      </div>
-      <div>
-        <label for="tags">Tags:</label>
-        <textarea name="tags" id="tags" cols="30" rows="10" ng-model="vm.Tags"></textarea>
-      </div>
+            <md-input-container>
+                <label>URL</label>
+                <input ng-model="vm.Url">
+            </md-input-container>
+
+            <md-input-container>
+                <label>Tags</label>
+                <textarea cols="30" rows="10" ng-model="vm.Tags"></textarea>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Test Content</label>
+                <textarea cols="30" rows="2" placeholder="Write test code..." ng-model="vm.Code"></textarea>
+            </md-input-container>
+        </md-content>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button ng-click="vm.Save()">Zapisz</md-button>
-      <md-button ng-click="vm.Cancel()">Anuluj</md-button>
+        <md-button ng-click="vm.Save()">Zapisz</md-button>
+        <md-button ng-click="vm.Cancel()">Anuluj</md-button>
     </md-dialog-actions>
-  
+
 </md-dialog>
