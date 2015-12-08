@@ -2,7 +2,7 @@
 'use strict';
 
 
-angular.module('uiTestRunner', ['ngRoute', 'ngStorage', 'md.data.table', 'ngMaterial']);
+angular.module('uiTestRunner', ['ngRoute', 'ngStorage', 'md.data.table', 'ngMaterial', 'ui.ace']);
 
 angular.module('uiTestRunner')
 	.service("guidGeneratorService", function () {
@@ -51,6 +51,13 @@ angular.module('uiTestRunner')
 			all: all,
 			save: save,
 			remove: remove
+		};
+	})
+	.directive('mdToolbarTools', function () {
+		return {
+			restrict: 'E',
+			template: '<div ng-transclude class="md-toolbar-tools"></div>',
+			transclude: true
 		};
 	})
 	.controller('MainController', function MainController(testRepository, $mdDialog) {
