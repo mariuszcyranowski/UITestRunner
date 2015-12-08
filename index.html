@@ -8,12 +8,17 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc5/angular-material.css" type="text/css" />
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc5/angular-material.css" type="text/css"
+  />
   <link rel="stylesheet" href="libs/angular-material-data-table/dist/md-data-table.min.css" type="text/css" />
 </head>
 
-<body>
-  <h1>UI Test Runner</h1>
+<body layout="column">
+  <md-toolbar>
+    <md-toolbar-tools> 
+         <h2>UI Test Runner</h2>
+    </md-toolbar-tools>
+  </md-toolbar>
 
   <div ng-view></div>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
@@ -23,7 +28,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.2/ace.js"></script>
   <script src="/libs/ui-ace.js"></script>
- 
+
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc5/angular-material.js"></script>
   <script type="text/javascript" src="libs/angular-material-data-table/dist/md-data-table.js"></script>
 

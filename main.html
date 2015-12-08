@@ -2,9 +2,9 @@
   <input type="text" placeholder="Wyszukiwarka" ng-model="vm.search">
 </div>
 
-<md-button class="md-fab md-accent" ng-transclude ng-click="vm.edit($event, {})">
-    <span>+</span>
-  </md-button>
+<md-button class="md-raised" ng-click="vm.edit($event, {})">
+    Dodaj
+</md-button>
 <div class='tests'>
   <md-data-table-container>
     <table md-data-table md-row-select="selected" md-progress="deferred">
