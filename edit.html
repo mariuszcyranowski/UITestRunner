@@ -8,16 +8,16 @@
         <md-content layout-padding layout="row">
             <md-input-container>
                 <label>Name</label>
-                <input ng-model="vm.Name"> 
+                <input ng-model="vm.Name">
             </md-input-container>
             <md-input-container>
                 <label>URL</label>
                 <input ng-model="vm.Url">
             </md-input-container>
-            <md-input-container>
-                <label>Tags</label>
-                <textarea cols="30" rows="10" ng-model="vm.Tags"></textarea>
-            </md-input-container>
+        </md-content>
+        <md-content layout="column" layout-margin>
+            <md-chips ng-model="vm.Tags" placeholder="Enter a tag" delete-button-label="Remove Tag" delete-hint="Press delete to remove tag"
+            secondary-placeholder="+Tag" />
         </md-content>
         <md-content>
             <div ui-ace="{ mode: 'javascript' }" ng-model="vm.Code" style="height: 200px; width: 100%;"></div>

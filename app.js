@@ -61,7 +61,12 @@ angular.module('uiTestRunner')
 		};
 	})
 	.controller('MainController', function MainController(testRepository, $mdDialog) {
+		var self = this;
 		this.Tests = testRepository.all();
+		this.add = function(event) {
+			self.edit(event, { Tags: [] });
+		};
+		
 		this.edit = function (event, test) {
 			event.stopPropagation();
 			$mdDialog.show({
@@ -77,11 +82,11 @@ angular.module('uiTestRunner')
 			}).then(function (test) {
 				console.log(test);
 			});
-		}
+		};
 
 		this.remove = function (test) {
 			testRepository.remove(test);
-		}
+		};
 	})
 	.controller("EditTestController", function EditTestController(testRepository, test, $mdDialog) {
 		var self = this;
