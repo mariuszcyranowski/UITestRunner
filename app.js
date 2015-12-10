@@ -2,7 +2,7 @@
 'use strict';
 
 
-angular.module('uiTestRunner', ['ngRoute', 'ngStorage', 'md.data.table', 'ngMaterial', 'ui.ace']);
+angular.module('uiTestRunner', ['ngRoute', 'ngStorage', 'md.data.table', 'ngMaterial', 'ui.ace', 'ngMdIcons']);
 
 angular.module('uiTestRunner')
 	.service("guidGeneratorService", function () {
