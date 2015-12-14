@@ -2,7 +2,7 @@
 'use strict';
 
 
-angular.module('uiTestRunner', ['ngRoute', 'ngStorage', 'md.data.table', 'ngMaterial', 'ui.ace', 'ngMdIcons']);
+angular.module('uiTestRunner', ['ngRoute', 'ngStorage', 'ngMaterial', 'ui.ace', 'ngMdIcons']);
 
 angular.module('uiTestRunner')
 	.service("guidGeneratorService", function () {
@@ -60,14 +60,14 @@ angular.module('uiTestRunner')
 			transclude: true
 		};
 	})
-	.controller('MainController', function MainController(testRepository, $mdDialog) {
+	.controller('MainController', function MainController(testRepository, $mdDialog, $filter) {
 		var self = this;
-		this.Tests = testRepository.all();
-		this.add = function(event) {
+		self.Tests = testRepository.all();
+		self.add = function (event) {
 			self.edit(event, { Tags: [] });
 		};
-		
-		this.edit = function (event, test) {
+
+		self.edit = function (event, test) {
 			event.stopPropagation();
 			$mdDialog.show({
 				clickOutsideToClose: true,
@@ -84,8 +84,14 @@ angular.module('uiTestRunner')
 			});
 		};
 
-		this.remove = function (test) {
+		self.remove = function (test) {
 			testRepository.remove(test);
+		};
+
+		self.search = function (event) {
+			if (event.keyCode === 13) {
+				self.Tests = $filter('filter')(testRepository.all(), { Name: self.searchText });
+			}
 		};
 	})
 	.controller("EditTestController", function EditTestController(testRepository, test, $mdDialog) {
