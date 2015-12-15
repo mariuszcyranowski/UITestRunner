@@ -16,7 +16,7 @@
     </md-button>
     <md-input-container md-theme="input" flex>
       <label>&nbsp;</label>
-      <input ng-model="vm.searchText" placeholder="wyszukaj" ng-keyup="vm.onKeyUp($event)">
+      <input ng-model="vm.searchText" placeholder="wyszukaj" ng-keyup="vm.onKeyUp($event)" focus-if="vm.isSearchVisible">
     </md-input-container>
     <md-button class="md-icon-button" aria-label="Szukaj" ng-click="vm.search()">
       <ng-md-icon icon="search"></ng-md-icon>
