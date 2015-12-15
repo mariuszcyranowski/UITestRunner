@@ -88,10 +88,26 @@ angular.module('uiTestRunner')
 			testRepository.remove(test);
 		};
 
-		self.search = function (event) {
+		self.onKeyUp = function (event) {
 			if (event.keyCode === 13) {
-				self.Tests = $filter('filter')(testRepository.all(), { Name: self.searchText });
+				self.search();
+			} else if (event.keyCode === 27) {
+				self.hideSearch();
 			}
+		};
+
+		self.search = function () {
+			self.Tests = $filter('filter')(testRepository.all(), { Name: self.searchText });
+		};
+		
+		self.hideSearch = function() {
+			self.searchText = null;
+			self.Tests = testRepository.all();
+			self.isSearchVisible = false;
+		};
+		
+		self.showSearch = function() {
+			self.isSearchVisible = true;
 		};
 	})
 	.controller("EditTestController", function EditTestController(testRepository, test, $mdDialog) {

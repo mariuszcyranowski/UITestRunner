@@ -1,24 +1,24 @@
-<md-toolbar ng-show="!showSearch">
+<md-toolbar ng-show="!vm.isSearchVisible">
   <div class="md-toolbar-tools">
     <h3>
       UI Test Runner
     </h3>
     <span flex></span>
-    <md-button class="md-icon-button" aria-label="Szukaj" ng-click="showSearch = !showSearch">
+    <md-button class="md-icon-button" aria-label="Szukaj" ng-click="vm.showSearch()">
       <ng-md-icon icon="search"></ng-md-icon>
     </md-button>
   </div>
 </md-toolbar>
-<md-toolbar class="md-hue-1" ng-show="showSearch">
+<md-toolbar class="md-hue-1" ng-show="vm.isSearchVisible">
   <div class="md-toolbar-tools">
-    <md-button class="md-icon-button" ng-click="showSearch = !showSearch" aria-label="Back">
+    <md-button class="md-icon-button" ng-click="vm.hideSearch()" aria-label="Back">
       <ng-md-icon icon="arrow_back"></ng-md-icon>
     </md-button>
     <md-input-container md-theme="input" flex>
       <label>&nbsp;</label>
-      <input ng-model="vm.searchText" placeholder="wyszukaj" ng-keyup="vm.search($event)">
+      <input ng-model="vm.searchText" placeholder="wyszukaj" ng-keyup="vm.onKeyUp($event)">
     </md-input-container>
-    <md-button class="md-icon-button" aria-label="Szukaj" ng-click="showSearch = !showSearch">
+    <md-button class="md-icon-button" aria-label="Szukaj" ng-click="vm.search()">
       <ng-md-icon icon="search"></ng-md-icon>
     </md-button>
   </div>
