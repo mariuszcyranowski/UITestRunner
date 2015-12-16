@@ -4,4 +4,8 @@ run server inside this directory with command:
 python -m SimpleHTTPServer
 
 do zrobienia:
-zmienić nazwy propert i funkcji na camelCase 
+nagłówki na liście testów
+podświetlenie na onMouseEnter 
+walidacja url'a
+zrobić backend w node
+wirtualizacja listy testów (live scroll)

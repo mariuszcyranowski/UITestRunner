@@ -1,0 +1,13 @@
+md-content.md-default-theme {
+	background-color: #aaa;
+}
+
+.test-name {
+	margin-bottom: 2px !important;
+}
+
+.url {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;	
+}
