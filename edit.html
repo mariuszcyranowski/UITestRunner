@@ -8,24 +8,24 @@
         <md-content layout-padding layout="row">
             <md-input-container>
                 <label>Name</label>
-                <input ng-model="vm.Name" focus-if="true">
+                <input ng-model="vm.name" focus-if="true">
             </md-input-container>
             <md-input-container>
                 <label>URL</label>
-                <input ng-model="vm.Url">
+                <input ng-model="vm.url">
             </md-input-container>
         </md-content>
         <md-content layout="column" layout-margin>
-            <md-chips ng-model="vm.Tags" placeholder="Enter a tag" delete-button-label="Remove Tag" delete-hint="Press delete to remove tag"
+            <md-chips ng-model="vm.tags" placeholder="Enter a tag" delete-button-label="Remove Tag" delete-hint="Press delete to remove tag"
             secondary-placeholder="+Tag" />
         </md-content>
         <md-content>
-            <div ui-ace="{ mode: 'javascript' }" ng-model="vm.Code" style="height: 200px; width: 100%;"></div>
+            <div ui-ace="{ mode: 'javascript' }" ng-model="vm.code" style="height: 200px; width: 100%;"></div>
         </md-content>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-        <md-button ng-click="vm.Save()">Zapisz</md-button>
-        <md-button ng-click="vm.Cancel()">Anuluj</md-button>
+        <md-button ng-click="vm.save()">Zapisz</md-button>
+        <md-button ng-click="vm.cancel()">Anuluj</md-button>
     </md-dialog-actions>
 
 </md-dialog>

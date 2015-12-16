@@ -32,10 +32,10 @@
       <md-card-content>
         <h2>Testy</h2>
         <md-list>
-          <md-list-item ng-repeat="test in vm.Tests">
-                <p>{{test.Name}}</p>
-                <p>{{test.Url}}</p>
-                <p>{{test.Tags.join(',')}}</p>
+          <md-list-item ng-repeat="test in vm.tests">
+                <p>{{test.name}}</p>
+                <p>{{test.url}}</p>
+                <p>{{test.tags.join(',')}}</p>
                 <md-button ng-click="vm.edit($event, test)" aria-label="Edycja">Edycja</md-button>
                 <md-button ng-click="vm.remove(test)" aria-label="Usuń">Usuń</md-button>
               <md-divider ng-if="!$last"></md-divider>

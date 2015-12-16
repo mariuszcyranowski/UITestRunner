@@ -17,34 +17,34 @@ angular.module('uiTestRunner')
 		};
 	})
 	.service('testRepository', function testRepository($localStorage, guidGeneratorService) {
-		$localStorage.Tests = $localStorage.Tests || [];
+		$localStorage.tests = $localStorage.tests || [];
 
 		var all = function () {
-			return $localStorage.Tests;
+			return $localStorage.tests;
 		};
 
 		var save = function (test) {
 			var testToSave;
 
-			if (test.Guid) {
-				testToSave = $localStorage.Tests.find(function (t) {
-					return t.Guid === test.Guid;
+			if (test.guid) {
+				testToSave = $localStorage.tests.find(function (t) {
+					return t.guid === test.guid;
 				});
 			} else {
 				testToSave = {
-					Guid: guidGeneratorService()
+					guid: guidGeneratorService()
 				};
-				$localStorage.Tests.push(testToSave);
+				$localStorage.tests.push(testToSave);
 			}
-			testToSave.Url = test.Url;
-			testToSave.Code = test.Code;
-			testToSave.Name = test.Name;
-			testToSave.Tags = test.Tags;
+			testToSave.url = test.url;
+			testToSave.code = test.code;
+			testToSave.name = test.name;
+			testToSave.tags = test.tags;
 		};
 
 		var remove = function (test) {
-			var idx = $localStorage.Tests.indexOf(test);
-			$localStorage.Tests.splice(idx, 1);
+			var idx = $localStorage.tests.indexOf(test);
+			$localStorage.tests.splice(idx, 1);
 		};
 
 		return {
@@ -62,9 +62,9 @@ angular.module('uiTestRunner')
 	})
 	.controller('MainController', function MainController(testRepository, $mdDialog, $filter) {
 		var self = this;
-		self.Tests = testRepository.all();
+		self.tests = testRepository.all();
 		self.add = function (event) {
-			self.edit(event, { Tags: [] });
+			self.edit(event, { tags: [] });
 		};
 
 		self.edit = function (event, test) {
@@ -97,12 +97,12 @@ angular.module('uiTestRunner')
 		};
 
 		self.search = function () {
-			self.Tests = $filter('filter')(testRepository.all(), { Name: self.searchText });
+			self.tests = $filter('filter')(testRepository.all(), {name: self.searchText });
 		};
 		
 		self.hideSearch = function() {
 			self.searchText = null;
-			self.Tests = testRepository.all();
+			self.tests = testRepository.all();
 			self.isSearchVisible = false;
 		};
 		
@@ -113,16 +113,16 @@ angular.module('uiTestRunner')
 	.controller("EditTestController", function EditTestController(testRepository, test, $mdDialog) {
 		var self = this;
 		angular.extend(this, test);
-		self.Cancel = function () {
+		self.cancel = function () {
 			$mdDialog.hide();
 		};
-		self.Save = function () {
+		self.save = function () {
 			var testToUpdate = {
-				Guid: self.Guid,
-				Url: self.Url,
-				Code: self.Code,
-				Name: self.Name,
-				Tags: self.Tags,
+				guid: self.guid,
+				url: self.url,
+				code: self.code,
+				name: self.name,
+				tags: self.tags,
 			};
 			testRepository.save(testToUpdate);
 			$mdDialog.hide(testToUpdate);
