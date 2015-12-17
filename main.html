@@ -32,12 +32,11 @@
       <md-card-content>
         <h2>Testy</h2>
         <md-list>
-          <md-list-item ng-repeat="test in vm.tests" class="md-2-line">
+          <md-list-item ng-repeat="test in vm.tests" class="md-2-line" ng-click="vm.edit($event, test)">
             <div class="md-list-item-text" layout="column">
               <h3 class="test-name">{{test.name}}</h3>
               <code class="url">{{test.url}}</code>
             </div>
-            <md-button ng-click="vm.edit($event, test)" aria-label="Edycja">Edycja</md-button>
             <md-button ng-click="vm.remove(test)" aria-label="Usuń">Usuń</md-button>
             <md-divider ng-if="!$last"></md-divider>
           </md-list-item>
