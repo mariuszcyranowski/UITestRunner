@@ -1,5 +1,7 @@
 # UITestRunner
 
+bower install
+
 run server inside this directory with command:
 python -m SimpleHTTPServer
 

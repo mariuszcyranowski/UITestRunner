@@ -1,0 +1,30 @@
+{
+  "name": "UITestRunner",
+  "homepage": "https://github.com/mariuszcyranowski/UITestRunner",
+  "authors": [
+    "ITM"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "~1.4.8",
+    "angular-route": "~1.4.8",
+    "ngstorage": "~0.3.10",
+    "angular-animate": "~1.4.8",
+    "angular-aria": "~1.4.8",
+    "ng-focus-if": "~1.0.2",
+    "angular-material": "~1.0.0",
+    "angular-material-icons": "~0.6.0",
+    "angular-ui-ace": "~0.2.3"
+  }
+}
