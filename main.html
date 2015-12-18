@@ -37,7 +37,7 @@
               <h3 class="test-name">{{test.name}}</h3>
               <code class="url">{{test.url}}</code>
             </div>
-            <md-button ng-click="vm.remove(test)" aria-label="Usuń">Usuń</md-button>
+            <md-button ng-click="vm.remove($event, test)" aria-label="Usuń">Usuń</md-button>
             <md-divider ng-if="!$last"></md-divider>
           </md-list-item>
         </md-list>

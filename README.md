@@ -6,6 +6,6 @@ run server inside this directory with command:
 python -m SimpleHTTPServer
 
 do zrobienia:
-walidacja url'a
-zrobić backend w node
-wirtualizacja listy testów (live scroll)
++ zrobić backend w node
++ wirtualizacja listy testów (live scroll)
+- naprawić dodawania taga po focusout

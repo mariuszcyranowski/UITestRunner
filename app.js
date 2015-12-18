@@ -16,11 +16,16 @@ angular.module('uiTestRunner')
 				s4() + '-' + s4() + s4() + s4();
 		};
 	})
-	.service('testRepository', function testRepository($localStorage, guidGeneratorService) {
+	.service('testRepository', function testRepository($localStorage, $filter, guidGeneratorService) {
 		$localStorage.tests = $localStorage.tests || [];
 
-		var all = function () {
-			return $localStorage.tests;
+		var find = function (data) {
+			data = data || {};
+			var list = $localStorage.tests;
+			if (data.searchText) {
+				list = $filter('filter')(list, { name: data.searchText });
+			}
+			return { totalCount: list.length, records: list.slice(data.offset || 0, data.size || 4) };
 		};
 
 		var save = function (test) {
@@ -48,7 +53,7 @@ angular.module('uiTestRunner')
 		};
 
 		return {
-			all: all,
+			find: find,
 			save: save,
 			remove: remove
 		};
@@ -62,7 +67,9 @@ angular.module('uiTestRunner')
 	})
 	.controller('MainController', function MainController(testRepository, $mdDialog, $filter) {
 		var self = this;
-		self.tests = testRepository.all();
+		var result = testRepository.find();
+		self.totalCount = result.totalCount;
+		self.tests = result.records;
 		self.add = function (event) {
 			self.edit(event, { tags: [] });
 		};
@@ -80,12 +87,14 @@ angular.module('uiTestRunner')
 					test: test
 				}
 			}).then(function (test) {
-				console.log(test);
+				self.search();				
 			});
 		};
 
-		self.remove = function (test) {
+		self.remove = function (event, test) {
+			event.stopPropagation();
 			testRepository.remove(test);
+			self.search();
 		};
 
 		self.onKeyUp = function (event) {
@@ -97,12 +106,16 @@ angular.module('uiTestRunner')
 		};
 
 		self.search = function () {
-			self.tests = $filter('filter')(testRepository.all(), {name: self.searchText });
+			var result = testRepository.find({ searchText: self.searchText });
+			self.totalCount = result.totalCount;
+			self.tests = result.records;
 		};
 		
 		self.hideSearch = function() {
 			self.searchText = null;
-			self.tests = testRepository.all();
+			var result = testRepository.find();
+			self.totalCount = result.totalCount;
+			self.tests = result.records;
 			self.isSearchVisible = false;
 		};
 		
