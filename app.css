@@ -11,3 +11,8 @@ md-content.md-default-theme {
 	overflow: hidden;
 	white-space: nowrap;	
 }
+
+#tests-container {
+	height: 300px;
+	width: 100%;
+}

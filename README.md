@@ -9,3 +9,4 @@ do zrobienia:
 + zrobić backend w node
 + wirtualizacja listy testów (live scroll)
 - naprawić dodawania taga po focusout
+- naprawić nie odświeżanie się listy po usuwaniu i dodawaniu (i edycji pewnie też)

@@ -1,6 +1,56 @@
 /* global angular */
 'use strict';
 
+// In this example, we set up our model using a class.
+// Using a plain object works too. All that matters
+// is that we implement getItemAtIndex and getLength.
+var DynamicItems = function (repo) {
+	/**
+	 * @type {!Object<?Array>} Data pages, keyed by page number (0-index).
+	 */
+	this.loadedPages = {};
+	/** @type {number} Total number of items. */
+	this.numItems = 0;
+	/** @const {number} Number of items to fetch per request. */
+	this.PAGE_SIZE = 5;
+	this.repo = repo;
+
+	this.fetchPage_(0);
+};
+// Required.
+DynamicItems.prototype.getItemAtIndex = function (index) {
+	var pageNumber = Math.floor(index / this.PAGE_SIZE);
+	var page = this.loadedPages[pageNumber];
+	if (page === undefined) {
+		this.fetchPage_(pageNumber);
+		page = this.loadedPages[pageNumber];
+	}
+	return page[index % this.PAGE_SIZE];
+};
+// Required.
+DynamicItems.prototype.getLength = function () {
+	return this.numItems;
+};
+
+DynamicItems.prototype.fetchPage_ = function (pageNumber) {
+	// Set the page to null so we know it is already being fetched.
+	var result = this.repo.find({ offset: pageNumber * this.PAGE_SIZE, size: this.PAGE_SIZE });
+	this.loadedPages[pageNumber] = result.records;
+	this.numItems = result.totalCount;
+	console.log("Pobrałem stronę ", pageNumber)
+};
+
+function populate(items) {
+	var data = [];
+	for (var i = 0; i < items; i += 1) {
+		var test = { guid: i.toString(), name: "Dupa" + i, url: "http://dupa.net/" + i + ".html" };
+		data.push(test);
+	}
+	window.localStorage.setItem("ngStorage-tests", JSON.stringify(data));
+}
+
+//--------------------------------
+
 
 angular.module('uiTestRunner', ['ngRoute', 'ngStorage', 'ngMaterial', 'ui.ace', 'ngMdIcons', 'focus-if']);
 
@@ -25,7 +75,7 @@ angular.module('uiTestRunner')
 			if (data.searchText) {
 				list = $filter('filter')(list, { name: data.searchText });
 			}
-			return { totalCount: list.length, records: list.slice(data.offset || 0, data.size || 4) };
+			return { totalCount: list.length, records: list.slice(data.offset || 0, (data.offset || 0) + (data.size || 4)) };
 		};
 
 		var save = function (test) {
@@ -67,9 +117,9 @@ angular.module('uiTestRunner')
 	})
 	.controller('MainController', function MainController(testRepository, $mdDialog, $filter) {
 		var self = this;
-		var result = testRepository.find();
-		self.totalCount = result.totalCount;
-		self.tests = result.records;
+		// var result = testRepository.find();
+		// self.totalCount = result.totalCount;
+		// self.tests = result.records;
 		self.add = function (event) {
 			self.edit(event, { tags: [] });
 		};
@@ -87,7 +137,7 @@ angular.module('uiTestRunner')
 					test: test
 				}
 			}).then(function (test) {
-				self.search();				
+				self.search();
 			});
 		};
 
@@ -110,18 +160,20 @@ angular.module('uiTestRunner')
 			self.totalCount = result.totalCount;
 			self.tests = result.records;
 		};
-		
-		self.hideSearch = function() {
+
+		self.hideSearch = function () {
 			self.searchText = null;
 			var result = testRepository.find();
 			self.totalCount = result.totalCount;
 			self.tests = result.records;
 			self.isSearchVisible = false;
 		};
-		
-		self.showSearch = function() {
+
+		self.showSearch = function () {
 			self.isSearchVisible = true;
 		};
+
+		self.dynamicItems = new DynamicItems(testRepository);
 	})
 	.controller("EditTestController", function EditTestController(testRepository, test, $mdDialog) {
 		var self = this;
